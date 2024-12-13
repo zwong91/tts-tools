@@ -60,6 +60,23 @@ pip install -r requirements.txt
 
 ## Pretrained Models
 
+# UVR5
+https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/uvr5_weights/HP2_all_vocals.pth
+  out=tools/uvr5/uvr5_weights/HP2_all_vocals.pthQ
+https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/uvr5_weights/HP3_all_vocals.pth
+  out=tools/uvr5/uvr5_weights/HP3_all_vocals.pth
+https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/uvr5_weights/HP5_only_main_vocal.pth
+  out=tools/uvr5/uvr5_weights/HP5_only_main_vocal.pth
+https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/uvr5_weights/VR-DeEchoAggressive.pth
+  out=tools/uvr5/uvr5_weights/VR-DeEchoAggressive.pth
+https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/uvr5_weights/VR-DeEchoDeReverb.pth
+  out=tools/uvr5/uvr5_weights/VR-DeEchoDeReverb.pth
+https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/uvr5_weights/VR-DeEchoNormal.pth
+  out=tools/uvr5/uvr5_weights/VR-DeEchoNormal.pth
+https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/uvr5_weights/onnx_dereverb_By_FoxJoy/vocals.onnx
+  out=tools/uvr5/uvr5_weights/onnx_dereverb_By_FoxJoy/vocals.onnx
+
+
 **Users in China can [download all these models here](https://www.yuque.com/baicaigongchang1145haoyuangong/ib3g1e/dkxgpiy9zb96hob4#nVNhX).**
 
 UVR5 (Vocals/Accompaniment Separation & Reverberation Removal, additionally), download models from [UVR5 Weights](https://huggingface.co/lj1995/VoiceConversionWebUI/tree/main/uvr5_weights) and place them in `/uvr5/uvr5_weights`.
