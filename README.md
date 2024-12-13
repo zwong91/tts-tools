@@ -3,8 +3,8 @@ From GPT-SoVITS
 
 ### Environments
 
-- Python 3.10.13, PyTorch 2.1.2, CUDA 12.3
-- Python 3.10, PyTorch 2.2.2, macOS 14.4.1 (Apple silicon)
+- Python 3.10.13, PyTorch 2.5.1, CUDA 12.2
+- Python 3.10.13, PyTorch 2.5.1, macOS 14.4.1 (Apple silicon)
 
 _Note: numba==0.56.4 requires py<3.11_
 
@@ -16,11 +16,8 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/
 bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
 rm -rf ~/miniconda3/miniconda.sh
 ~/miniconda3/bin/conda init bash && source ~/miniconda3/bin/activate
-```
 
-
-```bash
-conda create -n UVR5 python=3.10
+conda create -n UVR5 python=3.10 -y
 conda activate UVR5
 bash install.sh
 ```
