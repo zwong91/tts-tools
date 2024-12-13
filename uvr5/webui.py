@@ -1,8 +1,8 @@
 import os
 import traceback,gradio as gr
 import logging
-from tools.i18n.i18n import I18nAuto
-from tools.my_utils import clean_path
+from i18n.i18n import I18nAuto
+from my_utils import clean_path
 i18n = I18nAuto()
 
 logger = logging.getLogger(__name__)
@@ -19,7 +19,7 @@ try:
     analytics.version_check = lambda:None
 except:...
 
-weight_uvr5_root = "tools/uvr5/uvr5_weights"
+weight_uvr5_root = "uvr5/uvr5_weights"
 uvr5_names = []
 for name in os.listdir(weight_uvr5_root):
     if name.endswith(".pth") or name.endswith(".ckpt") or "onnx" in name:

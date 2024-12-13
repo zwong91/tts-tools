@@ -5,7 +5,7 @@ from modelscope.pipelines import pipeline
 from modelscope.utils.constant import Tasks
 from tqdm import tqdm
 
-path_denoise  = 'tools/denoise-model/speech_frcrn_ans_cirm_16k'
+path_denoise  = 'denoise-model/speech_frcrn_ans_cirm_16k'
 path_denoise  = path_denoise  if os.path.exists(path_denoise)  else "damo/speech_frcrn_ans_cirm_16k"
 ans = pipeline(Tasks.acoustic_noise_suppression,model=path_denoise)
 def execute_denoise(input_folder,output_folder):

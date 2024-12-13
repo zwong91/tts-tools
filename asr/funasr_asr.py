@@ -21,18 +21,18 @@ def only_asr(input_file, language):
     return text
 
 def create_model(language="zh"):
-    path_vad  = 'tools/asr/models/speech_fsmn_vad_zh-cn-16k-common-pytorch'
-    path_punc = 'tools/asr/models/punc_ct-transformer_zh-cn-common-vocab272727-pytorch'
+    path_vad  = 'asr/models/speech_fsmn_vad_zh-cn-16k-common-pytorch'
+    path_punc = 'asr/models/punc_ct-transformer_zh-cn-common-vocab272727-pytorch'
     path_vad  = path_vad if os.path.exists(path_vad) else "iic/speech_fsmn_vad_zh-cn-16k-common-pytorch"
     path_punc = path_punc if os.path.exists(path_punc) else "iic/punc_ct-transformer_zh-cn-common-vocab272727-pytorch"
     vad_model_revision = punc_model_revision = "v2.0.4"
 
     if language == "zh":
-        path_asr = 'tools/asr/models/speech_paraformer-large_asr_nat-zh-cn-16k-common-vocab8404-pytorch'
+        path_asr = 'asr/models/speech_paraformer-large_asr_nat-zh-cn-16k-common-vocab8404-pytorch'
         path_asr = path_asr if os.path.exists(path_asr) else "iic/speech_paraformer-large_asr_nat-zh-cn-16k-common-vocab8404-pytorch"
         model_revision = "v2.0.4"
     elif language == "yue":
-        path_asr = 'tools/asr/models/speech_UniASR_asr_2pass-cantonese-CHS-16k-common-vocab1468-tensorflow1-online'
+        path_asr = 'asr/models/speech_UniASR_asr_2pass-cantonese-CHS-16k-common-vocab1468-tensorflow1-online'
         path_asr = path_asr if os.path.exists(path_asr) else "iic/speech_UniASR_asr_2pass-cantonese-CHS-16k-common-vocab1468-tensorflow1-online"
         model_revision = "master"
         path_vad = path_punc = None
