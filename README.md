@@ -9,6 +9,15 @@ From GPT-SoVITS
 _Note: numba==0.56.4 requires py<3.11_
 
 ### Linux
+```bash
+# 安装 miniconda, PyTorch/CUDA 的 conda 环境
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
+~/miniconda3/bin/conda init bash && source ~/miniconda3/bin/activate
+```
+
 
 ```bash
 conda create -n UVR5 python=3.10
