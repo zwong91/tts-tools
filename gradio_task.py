@@ -50,7 +50,7 @@ def process_files(input_paths):
 
     if not files_to_process:
         print("No new files to process.")
-        return
+        exit(0)
 
     print(f"Processing: {files_to_process}")
     
