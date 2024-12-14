@@ -1,6 +1,8 @@
 import os
 import traceback,gradio as gr
 import logging
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from i18n.i18n import I18nAuto
 from my_utils import clean_path
 i18n = I18nAuto()
