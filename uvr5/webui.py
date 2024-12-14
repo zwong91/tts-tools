@@ -91,7 +91,7 @@ def uvr(model_name, inp_root, save_root_vocal, paths, save_root_ins, agg, format
                 traceback.print_exc()
             if need_reformat == 1:
                 tmp_path = "%s/%s.reformatted.wav" % (
-                    os.path.join(os.environ["TEMP"]),
+                    os.path.join(os.environ.get("TEMP", "/tmp")),
                     os.path.basename(inp_path),
                 )
                 os.system(
