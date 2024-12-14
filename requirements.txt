@@ -18,6 +18,7 @@ torchaudio
 modelscope==1.10.0
 sentencepiece
 transformers
+huggingface_hub[cli]
 chardet
 PyYAML
 psutil
