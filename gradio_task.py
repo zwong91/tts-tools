@@ -2,6 +2,7 @@ import os
 import glob
 import librosa
 import numpy as np
+import json
 from gradio_client import Client, file
 
 # 检查路径是否为 URL
@@ -22,14 +23,41 @@ def is_valid_audio(file_path):
     except Exception:
         return False
 
-# 批处理函数，处理多个文件
+# 保存已处理文件到JSON文件
+def save_processed_files(processed_files, filename="processed_files.json"):
+    with open(filename, 'w') as f:
+        json.dump(list(processed_files), f)
+
+# 从JSON文件加载已处理的文件
+def load_processed_files(filename="processed_files.json"):
+    if os.path.exists(filename):
+        with open(filename, 'r') as f:
+            return set(json.load(f))
+    return set()
+
+# 将文件列表分批，每批最多处理3个
+def batch_process(paths, batch_size=3):
+    for i in range(0, len(paths), batch_size):
+        yield paths[i:i+batch_size]
+
+# 批处理函数，处理多个文件，避免重复处理
 def process_files(input_paths):
-    client = Client("http://127.0.0.1:15555/")
-    for input_path in input_paths:
-        print(f"Processing: {input_path}")
-        
-        # 第一次调用：处理去混响
-        paths = prepare_paths([input_path])
+    # 从文件中加载已处理的文件列表
+    processed_files = load_processed_files()
+
+    # 过滤掉已经处理的文件
+    files_to_process = [path for path in input_paths if path not in processed_files]
+
+    if not files_to_process:
+        print("No new files to process.")
+        return
+
+    print(f"Processing: {files_to_process}")
+    
+    # 1：处理去混响，按批次处理
+    for batch in batch_process(files_to_process):
+        paths = prepare_paths(batch)
+        client = Client("http://127.0.0.1:15555/")
         result = client.predict(
             model_name="onnx_dereverb_By_FoxJoy",
             inp_root="",
@@ -40,29 +68,42 @@ def process_files(input_paths):
             format0="wav",
             api_name="/uvr_convert"
         )
-        print(f"De-reverb result for {input_path}: Success")
+        print(f"MDX-Net De-reverb result for {batch}: Success")
 
-        # 获取第一次调用的输出文件路径
-        main_vocal_path = os.path.join('output', 'uvr5_opt', f'{os.path.basename(input_path)}.reformatted.wav_main_vocal.wav')
+        # 2：获取去混响后的主 vocal 路径，并批量处理
+        main_vocal_paths = []
+        for input_path in batch:
+            main_vocal_path = os.path.join('output', 'uvr5_opt', f'{os.path.basename(input_path)}.reformatted.wav_main_vocal.wav')
+            
+            # 检查输出文件是否有效
+            if not is_valid_audio(main_vocal_path):
+                print(f"Skipping second model for {input_path} due to invalid output.")
+                continue
 
-        # 检查第一次调用的输出文件是否有效
-        if not is_valid_audio(main_vocal_path):
-            print(f"Skipping second model for {input_path} due to invalid output.")
-            continue
-        
-        # 第二次调用：去回声
-        paths = prepare_paths([main_vocal_path])
-        result = client.predict(
-            model_name="VR-DeEchoAggressive",
-            inp_root="",
-            save_root_vocal="output/uvr5_opt",
-            paths=[file(path) for path in paths],  # 处理后的路径
-            save_root_ins="output/uvr5_opt",
-            agg=10,
-            format0="wav",
-            api_name="/uvr_convert"
-        )
-        print(f"Echo removal result for {input_path}: Success")
+            main_vocal_paths.append(main_vocal_path)
+
+        if main_vocal_paths:
+            # 3：批量处理去回声
+            for main_vocal_batch in batch_process(main_vocal_paths):
+                paths = prepare_paths(main_vocal_batch)
+                client = Client("http://127.0.0.1:15555/")
+                result = client.predict(
+                    model_name="VR-DeEchoAggressive",
+                    inp_root="",
+                    save_root_vocal="output/uvr5_opt",
+                    paths=paths,  # 批量传递处理后的路径
+                    save_root_ins="vc_uvr5_result",
+                    agg=10,
+                    format0="wav",
+                    api_name="/uvr_convert"
+                )
+                print(f"DeEcho-Aggressive Echo removal result for {main_vocal_batch}: Success")
+
+    # 更新已处理文件列表
+    processed_files.update(files_to_process)
+
+    # 保存已处理文件列表
+    save_processed_files(processed_files)
 
     print("Batch processing complete!")
 
