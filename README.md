@@ -10,6 +10,34 @@ _Note: numba==0.56.4 requires py<3.11_
 
 ### Linux
 ```bash
+
+rm /usr/bin/rclone
+rm /usr/local/share/man/man1/rclone.1
+wget https://downloads.rclone.org/v1.67.0/rclone-v1.67.0-linux-amd64.zip
+apt update 
+apt install zip unzip 
+unzip rclone-v1.67.0-linux-amd64.zip
+cp rclone-v1.67.0-linux-amd64/rclone  /usr/local/bin/
+cp rclone-v1.67.0-linux-amd64/rclone /usr/bin/
+
+mkdir -p ~/.config/rclone
+cat << EOF > ~/.config/rclone/rclone.conf
+[unc_cf]
+type = s3
+provider = Cloudflare
+access_key_id = c51bb3ea6e80fc1cb90beb966d54b6b8
+secret_access_key = ed1f8de685f69a9c965759e601d6e637c463ae15d62faded2869f9ef9a6c8baa
+endpoint = https://ec9b597fa02615ca6a0e62b7ff35d0cc.r2.cloudflarestorage.com
+acl = private
+EOF
+
+#从s3 下载
+rclone copy --no-check-certificate --progress --transfers=6  unc_cf:models/uvr5_weights.zip  ./
+
+#上传到s3
+rclone sync uvr5_weights.zip unc_cf:models/   --progress
+
+
 # 安装 miniconda, PyTorch/CUDA 的 conda 环境
 mkdir -p ~/miniconda3
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
@@ -80,7 +108,7 @@ UVR5 (Vocals/Accompaniment Separation & Reverberation Removal, additionally), do
 ## Method for running from the command line
 Use the command line to open the WebUI for UVR5
 ```
-python tools/uvr5/webui.py "<infer_device>" <is_half> <webui_port_uvr5>
+python uvr5/webui.py "<device>" <is_half> <webui_port_uvr5> <is_share>
 ```
 <!-- If you can't open a browser, follow the format below for UVR processing,This is using mdxnet for audio processing
 ```
