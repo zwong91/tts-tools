@@ -3,8 +3,8 @@ From GPT-SoVITS
 
 ### Environments
 
-- Python 3.10.13, PyTorch 2.2.1, CUDA 12.2
-- Python 3.10.13, PyTorch 2.2.1, macOS 14.4.1 (Apple silicon)
+- Python 3.10.13, PyTorch 2.1.1, CUDA 12.2
+- Python 3.10.13, PyTorch 2.1.1, macOS 14.4.1 (Apple silicon)
 
 _Note: numba==0.56.4 requires py<3.11_
 
