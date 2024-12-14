@@ -50,6 +50,7 @@ def process_files(input_paths):
 
     if not files_to_process:
         print("No new files to process.")
+        time.sleep(60)  # 每隔 1 分钟检查一次
         exit(0)
 
     print(f"Processing: {files_to_process}")
