@@ -90,7 +90,7 @@ def process_files(input_paths):
                 result = client.predict(
                     model_name="VR-DeEchoAggressive",
                     inp_root="",
-                    save_root_vocal="output/uvr5_opt",
+                    save_root_vocal="vc_uvr5_result",
                     paths=paths,  # 批量传递处理后的路径
                     save_root_ins="vc_uvr5_result",
                     agg=10,
@@ -105,7 +105,7 @@ def process_files(input_paths):
     # 保存已处理文件列表
     save_processed_files(processed_files)
 
-    print("Batch processing complete!")
+    print("Batch processing complete!, plz check directory ./vc_uvr5_result")
 
 # 批量获取本地音频文件（支持 .wav, .flac, .mp3, .m4a 格式）
 def get_local_audio_files(input_folder):
