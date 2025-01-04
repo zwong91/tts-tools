@@ -42,10 +42,6 @@ def create_app(config, enable_config_file=False):
     #from utils.logging import create_logger
     #create_logger(app)
 
-    # 限流器
-    from utils.limiter import limiter as lmt
-    lmt.init_app(app)
-
     # 注册url转换器
     from utils.converters import register_converters
     register_converters(app)
@@ -69,6 +65,10 @@ def create_app(config, enable_config_file=False):
     # app.redis_cluster = RedisCluster(
     #     startup_nodes=nodes, password='1234')
 
+    # 限流器
+    from utils.limiter import limiter as lmt
+    lmt.init_app(app)
+
     # 实现定时任务
     exec = {
         'default': ThreadPoolExecutor(max_workers=1)
@@ -86,13 +86,12 @@ def create_app(config, enable_config_file=False):
     app.before_request(jwt_authentication)
 
     # 注册用户模块
-    from .resources.user import user_bp
+    from resources.user import user_bp
     app.register_blueprint(user_bp)
 
     return app
 
 
-@app.route('/')
 def route_map():
     """
     main view, 返回所有视图url
@@ -100,7 +99,10 @@ def route_map():
     rules_iterator = app.url_map.iter_rules()
     return jsonify({rule.endpoint: rule.rule for rule in rules_iterator if rule.endpoint not in ('route_map', 'static')})
 
+
 # 启动 Flask 服务器
 if __name__ == "__main__":
     app = create_app(DefaultConfig, enable_config_file=True)
+    # 注册 route_map 路由
+    app.add_url_rule('/', 'route_map', route_map)
     app.run(debug=False)
