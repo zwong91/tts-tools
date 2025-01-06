@@ -14,9 +14,9 @@ from utils.jwt_util import generate_jwt
 # from cache import user as cache_user
 from utils.limiter import limiter as lmt
 
-class SMSVerificationCodeResource(Resource):
+class EmailResource(Resource):
     """
-    短信验证码
+    邮件
     """
     error_message = 'Too many requests.'
 
