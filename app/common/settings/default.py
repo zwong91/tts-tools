@@ -18,6 +18,8 @@ class DefaultConfig(object):
         ('172.17.0.3', '26381'), # slave2
     ]
     REDIS_SENTINEL_SERVICE_NAME = 'local-master'
+    REDIS_PASSWORD = 'default'  # Redis 密码
+    REDIS_DATABASE = 1  # Redis 数据库编号
 
     # redis 3主3从 集群
     REDIS_CLUSTER = [
@@ -60,8 +62,7 @@ class CeleryConfig(object):
     result_backend: 默认值
     task_routes: 指定队列名称为email, direct routingkeys
     """
-    #broker_url = 'amqp://admin:123456@localhost:5672/tts'
-    broker_url='redis://localhost:6379/1'
+    broker_url = 'amqp://admin:123456@localhost:5672/tts'
     task_routes = {
         'email.*': {'queue': 'email'},
     }

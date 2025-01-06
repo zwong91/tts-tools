@@ -44,24 +44,11 @@ class UserCache(object):
     def save(self):
         """
         保存缓存记录
-        :return:
         """
         r = current_app.redis_cluster
-        try:
-            user = User.query.options(load_only(
-                User.mobile,
-                User.name,
-                User.profile_photo,
-                User.introduction,
-                User.certificate
-            )).filter_by(id=self.user_id).first()
-        except DatabaseError as e:
-            current_app.logger.error(e)
-            # 对于这个数据库异常，我们自己封装的get方法无法为调用者做决定，决定返回什么值，所以抛出异常给调用者，由调用者决定
-            raise e
 
         # 在django中 查询单一对象，而数据库不存在，抛出异常  User.DoesNotExists
-        # 在sqlalchemy中，查询单一对象，数据库不存爱，不抛出异常，只返回None
+        # 在sqlalchemy中，查询单一对象，数据库不存在，不抛出异常，只返回None
         if user is None:
             # 数据库不存在
             try:
@@ -201,15 +188,6 @@ class UserProfileCache(object):
         if not exists:
             # This user cache data did not exist previously.
             if user is None:
-                user = User.query.options(load_only(User.name,
-                                                    User.mobile,
-                                                    User.profile_photo,
-                                                    User.is_media,
-                                                    User.introduction,
-                                                    User.certificate)) \
-                    .filter_by(id=self.user_id).first()
-
-            if user is None:
                 return None
 
             user_data = {
@@ -246,26 +224,10 @@ class UserProfileCache(object):
         else:
             user_data = self.save(force=True)
 
-        user_data = self._fill_fields(user_data)
-
         if not user_data['photo']:
             user_data['photo'] = constants.DEFAULT_USER_PROFILE_PHOTO
         user_data['photo'] = current_app.config['QINIU_DOMAIN'] + \
             user_data['photo']
-        return user_data
-
-    def _fill_fields(self, user_data):
-        """
-        补充字段
-        """
-        user_data['art_count'] = cache_statistic.UserArticlesCountStorage.get(
-            self.user_id)
-        user_data['follow_count'] = cache_statistic.UserFollowingsCountStorage.get(
-            self.user_id)
-        user_data['fans_count'] = cache_statistic.UserFollowersCountStorage.get(
-            self.user_id)
-        user_data['like_count'] = cache_statistic.UserLikedCountStorage.get(
-            self.user_id)
         return user_data
 
     def clear(self):
