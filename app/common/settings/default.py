@@ -58,17 +58,15 @@ class CeleryConfig(object):
     Celery默认配置
     broker_url: 指定消息队列的位置, tts为virtualhost, 添加一个然后放开权限
     result_backend: 默认值
-    task_routes: 指定队列名称为sms, direct routingkeys
+    task_routes: 指定队列名称为email, direct routingkeys
     """
-    broker_url = 'amqp://admin:123456@localhost:5672/tts'
-
+    #broker_url = 'amqp://admin:123456@localhost:5672/tts'
+    broker_url='redis://localhost:6379/1'
     task_routes = {
-        'sms.*': {'queue': 'sms'},
+        'email.*': {'queue': 'email'},
     }
 
     #broker_connection_retry = True
     broker_connection_retry_on_startup = True
-    # 阿里大鱼短信服务
-    DYSMS_ACCESS_KEY_ID = ''
-    DYSMS_ACCESS_KEY_SECRET = ''
+
 

@@ -8,4 +8,4 @@ app = Celery('tts')
 app.config_from_object(CeleryConfig)
 app.config_from_envvar('TTS_CELERY_SETTINGS', silent=True)
 # 自动注册celery任务
-app.autodiscover_tasks(['celery_tasks.sms'])
+app.autodiscover_tasks(['celery_tasks.email'])
