@@ -24,16 +24,23 @@ class EmailResource(Resource):
         lmt.limit(constants.LIMIT_EMAIL_SNED_BY_RECIPENT,
                   key_func=lambda: request.view_args['recipient'],
                   error_message=error_message),
-        lmt.limit(constants.LIMIT_SMS_VERIFICATION_CODE_BY_IP,
+        lmt.limit(constants.LIMIT_EMAIL_VERIFICATION_CODE_BY_IP,
                   key_func=get_remote_address,
                   error_message=error_message)
     ]
 
-    def get(self, recipient, subject, body):
-        code = '{:0>6d}'.format(random.randint(0, 999999))
-        current_app.redis_master.setex('app:code:{}'.format(recipient), constants.EMAIL_VERIFICATION_CODE_EXPIRES, code)
-        send_email.delay(recipient, subject, body)
-        return {'recipient': recipient}
+    def get(self, recipients, subject, body):
+        # 为每个收件人生成验证码并发送邮件
+        for recipient in recipients:
+            code = '{:0>6d}'.format(random.randint(0, 999999))
+            # 存储每个收件人的验证码
+            current_app.redis_master.setex(f'app:code:{recipient}', constants.EMAIL_VERIFICATION_CODE_EXPIRES, code)
+            
+            # 异步发送邮件
+            send_email.delay(recipient, subject, body)
+        
+        # 返回所有的收件人
+        return {'recipients': recipients}
 
 
 class AuthorizationResource(Resource):

@@ -5,6 +5,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(BASE_DIR, 'common'))
 
 from flask import Flask, jsonify
+from flask_mail import Mail
 from settings.default import DefaultConfig
 
 from redis.exceptions import RedisError
@@ -88,6 +89,8 @@ def create_app(config, enable_config_file=False):
     # 注册用户模块
     from resources.user import user_bp
     app.register_blueprint(user_bp)
+
+    app.mail = Mail(app)
 
     return app
 
