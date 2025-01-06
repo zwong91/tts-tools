@@ -1,6 +1,3 @@
-
----
-
 ### Environments
 
 - Python 3.10.13, PyTorch 2.5.1, CUDA 12.4(550)
@@ -9,6 +6,7 @@
 _Note: numba==0.56.4 requires py<3.11_
 
 ### Linux
+
 ```bash
 
 rm /usr/bin/rclone
@@ -83,6 +81,7 @@ conda install -c conda-forge 'ffmpeg<7'
 ```
 
 ##### MacOS Users
+
 ```bash
 brew install ffmpeg
 ```
@@ -95,10 +94,12 @@ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 ### dev mode
+
 ```shell
 export FLASK_ENV=development
 export TTS_WEB_SETTINGS=/path/to/config/file
 ```
+
 ### prod mode
 
 ```shell
@@ -142,6 +143,7 @@ The following post is a quote by user [Material1276 from reddit](https://www.red
 
 ## Method for running from the command line
 Use the command line to open the WebUI for UVR5
+
 ```
 python uvr5/webui.py "<device>" <is_half> <webui_port_uvr5> <is_share>
 ```
@@ -150,7 +152,8 @@ python uvr5/webui.py "<device>" <is_half> <webui_port_uvr5> <is_share>
 python mdxnet.py --model --input_root --output_vocal --output_ins --agg_level --format --device --is_half_precision
 ``` -->
 This is how the audio segmentation of the dataset is done using the command line
-```
+
+```bash
 python audio_slicer.py \
     --input_path "<path_to_original_audio_file_or_directory>" \
     --output_root "<directory_where_subdivided_audio_clips_will_be_saved>" \
