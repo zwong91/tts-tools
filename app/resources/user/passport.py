@@ -6,7 +6,7 @@ import random
 from datetime import datetime, timedelta
 from redis.exceptions import ConnectionError
 
-from celery_tasks.sms.tasks import send_verification_code
+from celery_tasks.email.tasks import send_email
 from utils import constants
 from utils import validate
 
@@ -29,11 +29,11 @@ class EmailResource(Resource):
                   error_message=error_message)
     ]
 
-    def get(self, mobile):
+    def get(self, recipient, subject, body):
         code = '{:0>6d}'.format(random.randint(0, 999999))
-        current_app.redis_master.setex('app:code:{}'.format(mobile), constants.SMS_VERIFICATION_CODE_EXPIRES, code)
-        send_verification_code.delay(mobile, code)
-        return {'mobile': mobile}
+        current_app.redis_master.setex('app:code:{}'.format(recipient), constants.EMAIL_VERIFICATION_CODE_EXPIRES, code)
+        send_email.delay(recipient, subject, body)
+        return {'recipient': recipient}
 
 
 class AuthorizationResource(Resource):
@@ -66,14 +66,14 @@ class AuthorizationResource(Resource):
         登录创建token
         """
         json_parser = RequestParser()
-        json_parser.add_argument('mobile', type=validate.mobile, required=True, location='json')
+        json_parser.add_argument('recipient', type=validate.recipient, required=True, location='json')
         json_parser.add_argument('code', type=validate.regex(r'^\d{6}$'), required=True, location='json')
         args = json_parser.parse_args()
-        mobile = args.mobile
+        recipient = args.recipient
         code = args.code
 
         # 从redis中获取验证码
-        key = 'app:code:{}'.format(mobile)
+        key = 'app:code:{}'.format(recipient)
         try:
             real_code = current_app.redis_master.get(key)
         except ConnectionError as e:
