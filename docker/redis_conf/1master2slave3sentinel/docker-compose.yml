@@ -1,4 +1,3 @@
-version: "3.4"
 services:
   # master的容器
   redis-server-master:

@@ -33,8 +33,6 @@ sh 1-config-cluster-redis.sh  生成redis conf
 - docker-compose 替代 docker run 部署 redis
 
 ```yaml
-version: "3.4"
-
 x-image: &default-image redis:latest
 x-restart: &default-restart always
 x-netmode: &default-netmode host
@@ -150,7 +148,7 @@ sh 3-set-cluster-redis.sh
 
 - 进入容器
 
-```
+```bash
 docker exec -it redis-cluster-7001 /bin/bash
 ```
 

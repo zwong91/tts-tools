@@ -16,13 +16,13 @@ from utils.limiter import limiter as lmt
 
 class EmailResource(Resource):
     """
-    邮件
+    发邮件
     """
     error_message = 'Too many requests.'
 
     decorators = [
-        lmt.limit(constants.LIMIT_SMS_VERIFICATION_CODE_BY_MOBILE,
-                  key_func=lambda: request.view_args['mobile'],
+        lmt.limit(constants.LIMIT_EMAIL_SNED_BY_RECIPENT,
+                  key_func=lambda: request.view_args['recipient'],
                   error_message=error_message),
         lmt.limit(constants.LIMIT_SMS_VERIFICATION_CODE_BY_IP,
                   key_func=get_remote_address,
