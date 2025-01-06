@@ -407,7 +407,7 @@ class UserSearchingHistoryStorage(object):
 
 class UserArticlesCache(object):
     """
-    用户文章缓存
+    用户Post缓存
     """
 
     def __init__(self, user_id):
@@ -416,7 +416,7 @@ class UserArticlesCache(object):
 
     def get_page(self, page, per_page):
         """
-        获取用户的文章列表
+        获取用户的Post列表
         :param page: 页数
         :param per_page: 每页数量
         :return: total_count, [article_id, ..]
@@ -481,7 +481,7 @@ class UserArticlesCache(object):
 
 class UserArticleCollectionsCache(object):
     """
-    用户收藏文章缓存
+    用户收藏Post缓存
     """
 
     def __init__(self, user_id):
@@ -490,7 +490,7 @@ class UserArticleCollectionsCache(object):
 
     def get_page(self, page, per_page):
         """
-        获取用户的文章列表
+        获取用户的Post列表
         :param page: 页数
         :param per_page: 每页数量
         :return: total_count, [article_id, ..]
@@ -553,7 +553,7 @@ class UserArticleCollectionsCache(object):
 
     def determine_collect_target(self, target):
         """
-        判断用户是否收藏了指定文章
+        判断用户是否收藏了指定Post
         :param target:
         :return:
         """
@@ -563,7 +563,7 @@ class UserArticleCollectionsCache(object):
 
 class UserArticleAttitudeCache(object):
     """
-    用户文章态度缓存数据
+    用户Post态度缓存数据
     """
 
     def __init__(self, user_id):
@@ -572,7 +572,7 @@ class UserArticleAttitudeCache(object):
 
     def get_all(self):
         """
-        获取用户文章态度数据
+        获取用户Post态度数据
         :return:
         """
         rc = current_app.redis_cluster
@@ -618,7 +618,7 @@ class UserArticleAttitudeCache(object):
 
     def get_article_attitude(self, article_id):
         """
-        获取指定文章态度
+        获取指定Post态度
         :param article_id:
         :return:
         """
@@ -632,7 +632,7 @@ class UserArticleAttitudeCache(object):
 
     def determine_liking_article(self, article_id):
         """
-        判断是否对文章点赞
+        判断是否对Post点赞
         :param article_id:
         :return:
         """
@@ -656,7 +656,7 @@ class UserCommentLikingCache(object):
 
     def get(self):
         """
-        获取用户文章评论点赞数据
+        获取用户Post评论点赞数据
         :return:
         """
         rc = current_app.redis_cluster
@@ -699,7 +699,7 @@ class UserCommentLikingCache(object):
 
     def determine_liking_comment(self, comment_id):
         """
-        判断是否对文章点赞
+        判断是否对Post点赞
         :param comment_id:
         :return:
         """
@@ -719,7 +719,7 @@ class UserCommentLikingCache(object):
 
 def get_user_articles(user_id):
     """
-    获取用户的所有文章列表 已废弃
+    获取用户的所有Post列表 已废弃
     :param user_id:
     :return:
     """
