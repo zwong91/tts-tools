@@ -1,6 +1,7 @@
 # celery启动文件
 from celery import Celery
-from settings.default import CeleryConfig
+
+from common.settings.default import CeleryConfig
 
 # 创建celery实例
 app = Celery('tts')
