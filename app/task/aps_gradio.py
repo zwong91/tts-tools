@@ -139,7 +139,7 @@ def create_input_paths(input_folder):
     return local_paths
 
 # 批量处理函数，指定要处理的本地文件夹路径
-input_folder = '/home/ubuntu/LiveAudio-rtc/vc'
+input_folder = '/root/LiveAudio-rtc/vc'
 #input_paths = create_input_paths(input_folder, input_urls)
 
 def fix_audio(flask_app):
