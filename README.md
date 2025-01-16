@@ -114,7 +114,7 @@ The following post is a quote by user [Material1276 from reddit](https://www.red
 
 > Some suggestions on making good samples
 >
-> Keep them about 7-9 seconds long. Longer isn't necessarily better.
+> Keep them about 10-30 seconds long. Longer isn't necessarily better.
 >
 > Make sure the audio is down sampled to a Mono, 22050Hz 16 Bit wav file. You will slow down processing by a large % and it seems cause poor quality results otherwise (based on a few tests). 24000Hz is the quality it outputs at anyway!
 >
