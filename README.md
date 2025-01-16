@@ -12,8 +12,8 @@ _Note: numba==0.56.4 requires py<3.11_
 rm /usr/bin/rclone
 rm /usr/local/share/man/man1/rclone.1
 wget https://downloads.rclone.org/v1.68.2/rclone-v1.68.2-linux-amd64.zip
-apt update 
-apt install zip unzip 
+apt update
+apt install zip unzip
 unzip rclone-v1.68.2-linux-amd64.zip
 cp rclone-v1.68.2-linux-amd64/rclone  /usr/local/bin/
 cp rclone-v1.68.2-linux-amd64/rclone /usr/bin/
@@ -60,7 +60,7 @@ bash install.sh
 conda create -n uvr5 python=3.10
 conda activate uvr5
 pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
- 
+
 ```
 
 ### Install Manually
@@ -114,13 +114,13 @@ The following post is a quote by user [Material1276 from reddit](https://www.red
 
 > Some suggestions on making good samples
 >
-> Keep them about 10-30 seconds long. Longer isn't necessarily better.
+> Keep them about 30 seconds long. Longer isn't necessarily better.
 >
-> Make sure the audio is down sampled to a Mono, 44100Hz 16 Bit wav file. You will slow down processing by a large % and it seems cause poor quality results otherwise (based on a few tests). 24000Hz is the quality it outputs at anyway!
+> Make sure the audio is down sampled to a Stereo, 48kHz 32 float wav file. You will slow down processing by a large % and it seems cause poor quality results otherwise (based on a few tests). 24000Hz is the quality it outputs at anyway!
 >
-> Using the latest version of Audacity, select your clip and Tracks > Resample to 44100Hz, then Tracks > Mix > Stereo to Mono. and then File > Export Audio, saving it as a WAV of 44100Hz
+> Using the latest version of Audacity, select your clip and Tracks > Resample to 48kHz, then Tracks > Mix > Stereo to Stereo. and then File > Export Audio, saving it as a WAV of 48kHz
 >
-> If you need to do any audio cleaning, do it before you compress it down to the above settings (Mono, 44100Hz, 16 Bit).
+> If you need to do any audio cleaning, do it before you compress it down to the above settings (Stereo, 48kHz, 32 float).
 >
 > Ensure the clip you use doesn't have background noises or music on e.g. lots of movies have quiet music when many of the actors are talking. Bad quality audio will have hiss that needs clearing up. The AI will pick this up, even if we don't, and to some degree, use it in the simulated voice to some extent, so clean audio is key!
 >
@@ -159,7 +159,7 @@ python audio_slicer.py \
     --output_root "<directory_where_subdivided_audio_clips_will_be_saved>" \
     --threshold <volume_threshold> \
     --min_length <minimum_duration_of_each_subclip> \
-    --min_interval <shortest_time_gap_between_adjacent_subclips> 
+    --min_interval <shortest_time_gap_between_adjacent_subclips>
     --hop_size <step_size_for_computing_volume_curve>
 
 ### WebUI Tools
