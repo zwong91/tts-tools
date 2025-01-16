@@ -116,11 +116,11 @@ The following post is a quote by user [Material1276 from reddit](https://www.red
 >
 > Keep them about 10-30 seconds long. Longer isn't necessarily better.
 >
-> Make sure the audio is down sampled to a Mono, 22050Hz 16 Bit wav file. You will slow down processing by a large % and it seems cause poor quality results otherwise (based on a few tests). 24000Hz is the quality it outputs at anyway!
+> Make sure the audio is down sampled to a Mono, 44100Hz 16 Bit wav file. You will slow down processing by a large % and it seems cause poor quality results otherwise (based on a few tests). 24000Hz is the quality it outputs at anyway!
 >
 > Using the latest version of Audacity, select your clip and Tracks > Resample to 22050Hz, then Tracks > Mix > Stereo to Mono. and then File > Export Audio, saving it as a WAV of 22050Hz
 >
-> If you need to do any audio cleaning, do it before you compress it down to the above settings (Mono, 22050Hz, 16 Bit).
+> If you need to do any audio cleaning, do it before you compress it down to the above settings (Mono, 44100Hz, 16 Bit).
 >
 > Ensure the clip you use doesn't have background noises or music on e.g. lots of movies have quiet music when many of the actors are talking. Bad quality audio will have hiss that needs clearing up. The AI will pick this up, even if we don't, and to some degree, use it in the simulated voice to some extent, so clean audio is key!
 >
