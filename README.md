@@ -118,7 +118,7 @@ The following post is a quote by user [Material1276 from reddit](https://www.red
 >
 > Make sure the audio is down sampled to a Mono, 44100Hz 16 Bit wav file. You will slow down processing by a large % and it seems cause poor quality results otherwise (based on a few tests). 24000Hz is the quality it outputs at anyway!
 >
-> Using the latest version of Audacity, select your clip and Tracks > Resample to 22050Hz, then Tracks > Mix > Stereo to Mono. and then File > Export Audio, saving it as a WAV of 22050Hz
+> Using the latest version of Audacity, select your clip and Tracks > Resample to 44100Hz, then Tracks > Mix > Stereo to Mono. and then File > Export Audio, saving it as a WAV of 44100Hz
 >
 > If you need to do any audio cleaning, do it before you compress it down to the above settings (Mono, 44100Hz, 16 Bit).
 >
